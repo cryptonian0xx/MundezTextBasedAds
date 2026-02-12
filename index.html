@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MundezAds - Text Ads That Get Seen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Paystack Inline JS -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #00ff88;
+            --primary-dark: #00cc6a;
+            --secondary: #00ccff;
+            --accent: #ff3366;
+            --dark: #0a0a0a;
+            --dark-light: #151515;
+            --gray: #2a2a2a;
+            --text: #e0e0e0;
+            --text-dim: #888;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        h1, h2, h3, h4 {
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+        }
+        
+        .lead {
+            font-size: 1.3rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--dark);
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+        
+        .btn-exit {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-exit:hover {
+            background: var(--accent);
+            color: var(--dark);
+        }
+        
+        /* Header */
+        header {
+            padding: 30px 0;
+            position: relative;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(0, 255, 136, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: 1;
+        }
+        
+        /* Stats */
+        .stats {
+            background: var(--dark-light);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: var(--text-dim);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Websites */
+        .websites {
+            background: var(--dark);
+        }
+        
+        .websites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .website-card {
+            background: var(--dark-light);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid var(--gray);
+            transition: var(--transition);
+        }
+        
+        .website-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+        
+        .website-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        /* Plans */
+        .plans {
+            background: var(--dark-light);
+        }
+        
+        .plans-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+        
+        .plans-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .plan-tab {
+            padding: 15px 30px;
+            background: var(--dark);
+            border: 2px solid var(--gray);
+            color: var(--text);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+        
+        .plan-tab.active {
+            background: var(--primary);
+            color: var(--dark);
+            border-color: var(--primary);
+        }
+        
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .plan-card {
+            background: var(--dark);
+            border-radius: 20px;
+            padding: 40px 30px;
+            border: 2px solid var(--gray);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plan-card.popular {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary);
+        }
+        
+        .plan-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 30px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .plan-price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+        
+        .plan-price span {
+            font-size: 1rem;
+            color: var(--text-dim);
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin: 30px 0;
+        }
+        
+        .plan-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .plan-features li i {
+            color: var(--primary);
+        }
+        
+        /* Form */
+        .form-section {
+            background: var(--dark);
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--dark-light);
+            border-radius: 20px;
+            padding: 50px;
+            border: 1px solid var(--gray);
+        }
+        
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 15px;
+            background: var(--dark);
+            border: 1px solid var(--gray);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* Preview - Sliding Ticker */
+        .preview-box {
+            background: var(--dark);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid var(--gray);
+        }
+        
+        .ticker-container {
+            background: #111;
+            border-radius: 10px;
+            padding: 0;
+            border-left: 5px solid var(--primary);
+            margin-top: 15px;
+            overflow: hidden;
+            position: relative;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .ticker-track {
+            white-space: nowrap;
+            padding-left: 100%;
+            display: inline-block;
+            animation: tickerPreview 15s linear infinite;
+            font-family: 'Space Mono', monospace;
+            font-size: 16px;
+            color: var(--primary);
+        }
+        
+        .ticker-track span {
+            margin-right: 60px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ticker-track .emoji {
+            font-size: 18px;
+        }
+        
+        .ticker-track a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        @keyframes tickerPreview {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* Footer - Simplified */
+        footer {
+            background: var(--dark-light);
+            padding: 40px 0 20px;
+            border-top: 1px solid var(--gray);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-dim);
+        }
+        
+        .contact-item i {
+            color: var(--primary);
+            width: 20px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+        
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: var(--dark-light);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            border: 2px solid var(--primary);
+            animation: modalIn 0.5s ease;
+            position: relative;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+        
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+            }
+            
+            .plan-card.popular {
+                transform: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-item {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .btn {
+                padding: 14px 24px;
+                font-size: 1rem;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .plans-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .plan-tab {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-bullhorn"></i>
+                    Mundez<span>Ads</span>
+                </a>
+                <a href="#signup" class="btn">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content animate-in">
+                <h1>Your Ad on 50+ Popular Websites</h1>
+                <p class="lead">Place text-based ads that scroll at the bottom of popular Nigerian websites and apps. Reach thousands daily with our affordable, targeted advertising platform.</p>
+                <a href="#signup" class="btn">Start Advertising Now</a>
+            </div>
+            
+            <!-- Stats -->
+            <div class="stats animate-in delay-1">
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Partner Websites</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">200K+</div>
+                    <div class="stat-label">Daily Reach</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">₦5K</div>
+                    <div class="stat-label">Starting Price</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Active Display</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Websites Using Our Ticker -->
+    <section class="websites">
+        <div class="container">
+            <h2 class="animate-in">Your Ad On Popular Platforms</h2>
+            <p class="lead animate-in delay-1">Our ticker system is embedded on popular websites and apps across Nigeria, ensuring your message reaches engaged audiences.</p>
+            
+            <div class="websites-grid">
+                <div class="website-card animate-in">
+                    <div class="website-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h3>News Portals</h3>
+                    <p>Punch, Vanguard, Guardian, Premium Times, Daily Post and other major Nigerian news sites.</p>
+                </div>
+                
+                <div class="website-card animate-in delay-1">
+                    <div class="website-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>E-Commerce Sites</h3>
+                    <p>Popular Nigerian online stores and marketplaces with high visitor engagement.</p>
+                </div>
+                
+                <div class="website-card animate-in delay-2">
+                    <div class="website-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h3>Entertainment Platforms</h3>
+                    <p>Movie streaming sites, music platforms, and entertainment blogs with young audiences.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Plans -->
+    <section class="plans" id="pricing">
+        <div class="container">
+            <div class="plans-intro animate-in">
+                <h2>Simple, Transparent Pricing</h2>
+                <p class="lead">Choose between our Standard plan for consistent visibility or Frequency-based plans for maximum exposure.</p>
+            </div>
+            
+            <div class="plans-tabs">
+                <div class="plan-tab active" data-plan-type="standard">Standard Plans</div>
+                <div class="plan-tab" data-plan-type="frequency">Frequency-Based Plans</div>
+            </div>
+            
+            <!-- Standard Plans -->
+            <div class="plans-grid" id="standard-plans">
+                <div class="plan-card animate-in">
+                    <h3>Weekly</h3>
+                    <div class="plan-price">₦5,000 <span>/ week</span></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Mid-priority placement</li>
+                        <li><i class="fas fa-check"></i> 50,000 - 200,000 reach</li>
+                        <li><i class="fas fa-check"></i> 24/7 display for 7 days</li>
+                        <li><i class="fas fa-check"></i> Text + clickable link</li>
+                        <li><i class="fas fa-check"></i> Basic analytics</li>
+                    </ul>
+                    <a href="#signup" class="btn" data-plan="weekly" data-amount="5000">Select Plan</a>
+                </div>
+                
+                <div class="plan-card popular animate-in delay-1">
+                    <div class="plan-badge">Most Popular</div>
+                    <h3>Monthly</h3>
+                    <div class="plan-price">₦18,000 <span>/ month</span></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> High-priority placement</li>
+                        <li><i class="fas fa-check"></i> 200,000 - 800,000 reach</li>
+                        <li><i class="fas fa-check"></i> 24/7 display for 30 days</li>
+                        <li><i class="fas fa-check"></i> Text + clickable link</li>
+                        <li><i class="fas fa-check"></i> Advanced analytics</li>
+                        <li><i class="fas fa-check"></i> Sponsor name highlighted</li>
+                    </ul>
+                    <a href="#signup" class="btn" data-plan="monthly" data-amount="18000">Select Plan</a>
+                </div>
+                
+                <div class="plan-card animate-in delay-2">
+                    <h3>Yearly</h3>
+                    <div class="plan-price">₦180,000 <span>/ year</span></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Top-priority placement</li>
+                        <li><i class="fas fa-check"></i> 2M+ annual reach</li>
+                        <li><i class="fas fa-check"></i> 24/7 display for 365 days</li>
+                        <li><i class="fas fa-check"></i> Text + clickable link</li>
+                        <li><i class="fas fa-check"></i> Premium analytics dashboard</li>
+                        <li><i class="fas fa-check"></i> Featured sponsor placement</li>
+                        <li><i class="fas fa-check"></i> 2 free ad changes per quarter</li>
+                    </ul>
+                    <a href="#signup" class="btn" data-plan="yearly" data-amount="180000">Select Plan</a>
+                </div>
+            </div>
+            
+            <!-- Frequency Plans -->
+            <div class="plans-grid hidden" id="frequency-plans">
+                <div class="plan-card animate-in">
+                    <h3>3 Hours Daily</h3>
+                    <div class="plan-price">₦3,000 <span>/ week</span></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> 3 hours display daily</li>
+                        <li><i class="fas fa-check"></i> Mid-priority placement</li>
+                        <li><i class="fas fa-check"></i> 20,000 - 50,000 reach</li>
+                        <li><i class="fas fa-check"></i> For 7 days</li>
+                        <li><i class="fas fa-check"></i> Text + clickable link</li>
+                    </ul>
+                    <a href="#signup" class="btn" data-plan="3hours" data-amount="3000">Select Plan</a>
+                </div>
+                
+                <div class="plan-card animate-in delay-1">
+                    <h3>6 Hours Daily</h3>
+                    <div class="plan-price">₦5,000 <span>/ week</span></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> 6 hours display daily</li>
+                        <li><i class="fas fa-check"></i> Mid-high priority placement</li>
+                        <li><i class="fas fa-check"></i> 40,000 - 100,000 reach</li>
+                        <li><i class="fas fa-check"></i> For 7 days</li>
+                        <li><i class="fas fa-check"></i> Text + clickable link</li>
+                        <li><i class="fas fa-check"></i> Basic analytics</li>
+                    </ul>
+                    <a href="#signup" class="btn" data-plan="6hours" data-amount="5000">Select Plan</a>
+                </div>
+                
+                <div class="plan-card animate-in delay-2">
+                    <h3>12 Hours Daily</h3>
+                    <div class="plan-price">₦10,000 <span>/ week</span></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> 12 hours display daily</li>
+                        <li><i class="fas fa-check"></i> High-priority placement</li>
+                        <li><i class="fas fa-check"></i> 80,000 - 200,000 reach</li>
+                        <li><i class="fas fa-check"></i> For 7 days</li>
+                        <li><i class="fas fa-check"></i> Text + clickable link</li>
+                        <li><i class="fas fa-check"></i> Advanced analytics</li>
+                        <li><i class="fas fa-check"></i> Sponsor name highlighted</li>
+                    </ul>
+                    <a href="#signup" class="btn" data-plan="12hours" data-amount="10000">Select Plan</a>
+                </div>
+                
+                <div class="plan-card animate-in delay-3">
+                    <h3>24 Hours Daily</h3>
+                    <div class="plan-price">₦20,000 <span>/ week</span></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> 24/7 display daily</li>
+                        <li><i class="fas fa-check"></i> Top-priority placement</li>
+                        <li><i class="fas fa-check"></i> 150,000 - 300,000 reach</li>
+                        <li><i class="fas fa-check"></i> For 7 days</li>
+                        <li><i class="fas fa-check"></i> Text + clickable link</li>
+                        <li><i class="fas fa-check"></i> Premium analytics dashboard</li>
+                        <li><i class="fas fa-check"></i> Featured sponsor placement</li>
+                    </ul>
+                    <a href="#signup" class="btn" data-plan="24hours" data-amount="20000">Select Plan</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signup Form -->
+    <section class="form-section" id="signup">
+        <div class="container">
+            <h2 class="animate-in">Create Your Ad</h2>
+            <p class="lead animate-in delay-1">Fill in your details and ad content. After payment, your ad will go live immediately.</p>
+            
+            <div class="form-container animate-in delay-2">
+                <!-- Step 1: Contact Info -->
+                <div class="form-step active" id="step1">
+                    <h3>Your Contact Information</h3>
+                    <p>We'll use this to send you confirmation and analytics.</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" placeholder="08012345678" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">Business/Individual Name *</label>
+                        <input type="text" id="name" placeholder="Your business or name" required>
+                    </div>
+                    
+                    <div class="form-navigation">
+                        <div></div>
+                        <button type="button" class="btn" id="nextStep1">Next: Ad Details</button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Ad Details -->
+                <div class="form-step" id="step2">
+                    <h3>Your Ad Content</h3>
+                    <p>Create your text ad that will appear on our partner websites.</p>
+                    
+                    <div class="form-group">
+                        <label for="adText">Ad Text * (Max 200 characters)</label>
+                        <textarea id="adText" placeholder="Example: Get 50% off all products this weekend! Limited offer. Visit our store now." maxlength="200" rows="4" required></textarea>
+                        <div style="text-align: right; margin-top: 5px; font-size: 0.9rem; color: var(--text-dim);">
+                            <span id="charCount">0</span>/200 characters
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="adLink">Link (Optional)</label>
+                        <input type="url" id="adLink" placeholder="https://yourwebsite.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="adType">Ad Type *</label>
+                        <select id="adType" required>
+                            <option value="">Select type</option>
+                            <option value="ad">💼 Business Advertisement</option>
+                            <option value="announcement">📣 Event Announcement</option>
+                            <option value="announcement">🎉 Party/ Celebration</option>
+                            <option value="announcement">⚰️ Obituary Notice</option>
+                            <option value="announcement">📢 Public Notice</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" id="prevStep2">Back</button>
+                        <button type="button" class="btn" id="nextStep2">Next: Select Plan</button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Plan Selection -->
+                <div class="form-step" id="step3">
+                    <h3>Select Your Plan</h3>
+                    <p>Choose between Standard or Frequency-based advertising.</p>
+                    
+                    <div class="form-group">
+                        <label for="planType">Plan Type *</label>
+                        <select id="planType" required>
+                            <option value="">Select plan type</option>
+                            <option value="standard">Standard Plans (Fixed duration)</option>
+                            <option value="frequency">Frequency-Based Plans (Hours per day)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="standardPlanSelect">
+                        <label for="standardPlan">Standard Plan *</label>
+                        <select id="standardPlan">
+                            <option value="">Select standard plan</option>
+                            <option value="weekly" data-amount="5000">Weekly - ₦5,000 (7 days, 24/7)</option>
+                            <option value="monthly" data-amount="18000">Monthly - ₦18,000 (30 days, 24/7)</option>
+                            <option value="yearly" data-amount="180000">Yearly - ₦180,000 (365 days, 24/7)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group hidden" id="frequencyPlanSelect">
+                        <label for="frequencyPlan">Frequency Plan *</label>
+                        <select id="frequencyPlan">
+                            <option value="">Select frequency plan</option>
+                            <option value="3hours" data-amount="3000">3 Hours Daily - ₦3,000/week</option>
+                            <option value="6hours" data-amount="5000">6 Hours Daily - ₦5,000/week</option>
+                            <option value="12hours" data-amount="10000">12 Hours Daily - ₦10,000/week</option>
+                            <option value="24hours" data-amount="20000">24 Hours Daily - ₦20,000/week</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Ad Preview - Sliding Ticker -->
+                    <div class="preview-box">
+                        <h4>Live Preview - See How Your Ad Will Scroll</h4>
+                        <p>This is exactly how your ad will appear at the bottom of websites:</p>
+                        <div class="ticker-container">
+                            <div class="ticker-track" id="previewTrack">
+                                <span>
+                                    <span class="emoji" id="previewEmoji">💼</span>
+                                    <span id="previewText">Your ad text will appear here and scroll continuously</span>
+                                    <span id="previewLink" style="color: var(--secondary);"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-dim);">
+                            <i class="fas fa-info-circle"></i> Your ad will scroll smoothly across 50+ websites, catching attention without being intrusive.
+                        </p>
+                    </div>
+                    
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" id="prevStep3">Back</button>
+                        <button type="button" class="btn" id="nextStep3">Proceed to Payment</button>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Payment -->
+                <div class="form-step" id="step4">
+                    <h3>Complete Payment</h3>
+                    <p>Review your order and proceed to secure payment via Paystack.</p>
+                    
+                    <div class="preview-box">
+                        <h4>Order Summary</h4>
+                        <div style="margin: 20px 0;">
+                            <p><strong>Ad Text:</strong> <span id="summaryText"></span></p>
+                            <p><strong>Link:</strong> <span id="summaryLink">None</span></p>
+                            <p><strong>Ad Type:</strong> <span id="summaryType"></span></p>
+                            <p><strong>Plan:</strong> <span id="summaryPlan"></span></p>
+                            <p><strong>Contact:</strong> <span id="summaryContact"></span></p>
+                            <hr style="border-color: var(--gray); margin: 20px 0;">
+                            <h3>Total: <span id="summaryAmount">₦0</span></h3>
+                        </div>
+                    </div>
+                    
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" id="prevStep4">Back</button>
+                        <button type="button" class="btn" id="payButton">
+                            <i class="fas fa-lock"></i> Pay with Paystack
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer - Simplified with your contact info -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <a href="#" class="logo">
+                        <i class="fas fa-bullhorn"></i>
+                        Mundez<span>Ads</span>
+                    </a>
+                    <p style="margin-top: 20px; max-width: 300px; color: var(--text-dim);">Text-based advertising on Nigeria's most visited websites and apps.</p>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>08051669043</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Abuja, Nigeria</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>edmundez@me.com</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 MundezAds. All rights reserved. Your ads reach thousands daily.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================================
+        // CONFIGURATION - HARDENED WITH API KEY
+        // ============================================================
+        
+        // Google Sheet Write URL (Your existing Apps Script URL)
+        const WRITE_URL = "https://script.google.com/macros/s/AKfycbyvTOD9N5I9XLN7iz6pR4kzXM2-ywlne0-r_CQUCh1XUBIeSbxf2JhhF5gZB81GSExzcQ/exec";
+        
+        // 🔐 SECURITY: API Key for Google Sheets (MUST match Apps Script)
+        // CHANGE THIS TO YOUR SECRET KEY - USE A RANDOM STRING
+        const API_KEY = "Mundez2024-Live-Secure-789xyz";
+        
+        // Paystack Live Public Key (Your provided key)
+        const PAYSTACK_PUBLIC_KEY = "pk_live_bde597c1f4765fb71074669e48524b99017fc27a";
+        
+        // GitHub Pages URL (for callback)
+        const SITE_URL = "https://cryptonian0xx.github.io/MundezTextBasedAds";
+        
+        // ============================================================
+        // FORM NAVIGATION
+        // ============================================================
+        
+        let currentStep = 0;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize preview with scrolling animation
+            initPreview();
+            
+            // Plan Tabs
+            const planTabs = document.querySelectorAll('.plan-tab');
+            const standardPlans = document.getElementById('standard-plans');
+            const frequencyPlans = document.getElementById('frequency-plans');
+            
+            planTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    planTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    if (this.dataset.planType === 'standard') {
+                        standardPlans.classList.remove('hidden');
+                        frequencyPlans.classList.add('hidden');
+                    } else {
+                        standardPlans.classList.add('hidden');
+                        frequencyPlans.classList.remove('hidden');
+                    }
+                });
+            });
+            
+            // Plan selection from pricing cards
+            document.querySelectorAll('.btn[data-plan]').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const planType = this.dataset.plan;
+                    const amount = this.dataset.amount;
+                    
+                    document.getElementById('signup').scrollIntoView({ behavior: 'smooth' });
+                    
+                    if (['weekly', 'monthly', 'yearly'].includes(planType)) {
+                        document.getElementById('planType').value = 'standard';
+                        document.getElementById('standardPlan').value = planType;
+                        
+                        document.getElementById('standardPlanSelect').classList.remove('hidden');
+                        document.getElementById('frequencyPlanSelect').classList.add('hidden');
+                        
+                        planTabs.forEach(t => t.classList.remove('active'));
+                        document.querySelector('.plan-tab[data-plan-type="standard"]').classList.add('active');
+                        standardPlans.classList.remove('hidden');
+                        frequencyPlans.classList.add('hidden');
+                    } else {
+                        document.getElementById('planType').value = 'frequency';
+                        document.getElementById('frequencyPlan').value = planType;
+                        
+                        document.getElementById('frequencyPlanSelect').classList.remove('hidden');
+                        document.getElementById('standardPlanSelect').classList.add('hidden');
+                        
+                        planTabs.forEach(t => t.classList.remove('active'));
+                        document.querySelector('.plan-tab[data-plan-type="frequency"]').classList.add('active');
+                        standardPlans.classList.add('hidden');
+                        frequencyPlans.classList.remove('hidden');
+                    }
+                    
+                    updatePreview();
+                });
+            });
+            
+            // Form steps
+            const steps = document.querySelectorAll('.form-step');
+            
+            // Step 1 to Step 2
+            document.getElementById('nextStep1').addEventListener('click', function() {
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const name = document.getElementById('name').value;
+                
+                if (!email || !phone || !name) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+                
+                if (!validateEmail(email)) {
+                    alert('Please enter a valid email address.');
+                    return;
+                }
+                
+                if (!validatePhone(phone)) {
+                    alert('Please enter a valid Nigerian phone number.');
+                    return;
+                }
+                
+                steps[currentStep].classList.remove('active');
+                currentStep = 1;
+                steps[currentStep].classList.add('active');
+                updatePreview();
+            });
+            
+            // Step 2 navigation
+            document.getElementById('nextStep2').addEventListener('click', function() {
+                const adText = document.getElementById('adText').value;
+                const adType = document.getElementById('adType').value;
+                
+                if (!adText || !adType) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+                
+                if (adText.length < 10) {
+                    alert('Ad text should be at least 10 characters.');
+                    return;
+                }
+                
+                steps[currentStep].classList.remove('active');
+                currentStep = 2;
+                steps[currentStep].classList.add('active');
+                updatePreview();
+            });
+            
+            document.getElementById('prevStep2').addEventListener('click', function() {
+                steps[currentStep].classList.remove('active');
+                currentStep = 0;
+                steps[currentStep].classList.add('active');
+            });
+            
+            // Step 3 navigation
+            document.getElementById('nextStep3').addEventListener('click', function() {
+                const planType = document.getElementById('planType').value;
+                const standardPlan = document.getElementById('standardPlan').value;
+                const frequencyPlan = document.getElementById('frequencyPlan').value;
+                
+                if (!planType || (planType === 'standard' && !standardPlan) || (planType === 'frequency' && !frequencyPlan)) {
+                    alert('Please select a plan.');
+                    return;
+                }
+                
+                // Update order summary
+                document.getElementById('summaryText').textContent = document.getElementById('adText').value;
+                document.getElementById('summaryLink').textContent = document.getElementById('adLink').value || 'None';
+                
+                const adTypeSelect = document.getElementById('adType');
+                document.getElementById('summaryType').textContent = adTypeSelect.options[adTypeSelect.selectedIndex].text;
+                
+                document.getElementById('summaryContact').textContent = `${document.getElementById('name').value} (${document.getElementById('email').value})`;
+                
+                if (planType === 'standard') {
+                    const planSelect = document.getElementById('standardPlan');
+                    const planText = planSelect.options[planSelect.selectedIndex].text;
+                    document.getElementById('summaryPlan').textContent = planText;
+                    document.getElementById('summaryAmount').textContent = '₦' + planSelect.selectedOptions[0].dataset.amount;
+                } else {
+                    const planSelect = document.getElementById('frequencyPlan');
+                    const planText = planSelect.options[planSelect.selectedIndex].text;
+                    document.getElementById('summaryPlan').textContent = planText;
+                    document.getElementById('summaryAmount').textContent = '₦' + planSelect.selectedOptions[0].dataset.amount;
+                }
+                
+                steps[currentStep].classList.remove('active');
+                currentStep = 3;
+                steps[currentStep].classList.add('active');
+            });
+            
+            document.getElementById('prevStep3').addEventListener('click', function() {
+                steps[currentStep].classList.remove('active');
+                currentStep = 1;
+                steps[currentStep].classList.add('active');
+            });
+            
+            // Step 4 navigation
+            document.getElementById('prevStep4').addEventListener('click', function() {
+                steps[currentStep].classList.remove('active');
+                currentStep = 2;
+                steps[currentStep].classList.add('active');
+            });
+            
+            // Character count for ad text (updated to 200)
+            document.getElementById('adText').addEventListener('input', function() {
+                document.getElementById('charCount').textContent = this.value.length;
+                updatePreview();
+            });
+            
+            // Update preview when inputs change
+            document.getElementById('adLink').addEventListener('input', updatePreview);
+            document.getElementById('adType').addEventListener('change', updatePreview);
+            
+            document.getElementById('planType').addEventListener('change', function() {
+                if (this.value === 'standard') {
+                    document.getElementById('standardPlanSelect').classList.remove('hidden');
+                    document.getElementById('frequencyPlanSelect').classList.add('hidden');
+                } else if (this.value === 'frequency') {
+                    document.getElementById('standardPlanSelect').classList.add('hidden');
+                    document.getElementById('frequencyPlanSelect').classList.remove('hidden');
+                } else {
+                    document.getElementById('standardPlanSelect').classList.add('hidden');
+                    document.getElementById('frequencyPlanSelect').classList.add('hidden');
+                }
+                updatePreview();
+            });
+            
+            document.getElementById('standardPlan').addEventListener('change', updatePreview);
+            document.getElementById('frequencyPlan').addEventListener('change', updatePreview);
+            
+            // ============================================================
+            // PAYSTACK PAYMENT INTEGRATION - HARDENED WITH API KEY
+            // ============================================================
+            
+            document.getElementById('payButton').addEventListener('click', async function() {
+                const payButton = this;
+                const originalText = payButton.innerHTML;
+                
+                // Validate all required fields
+                if (!validatePaymentData()) {
+                    return;
+                }
+                
+                // Disable button and show loading
+                payButton.disabled = true;
+                payButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                
+                try {
+                    // 1. Collect all form data
+                    const formData = collectFormData();
+                    
+                    // 2. Calculate dates based on plan
+                    const dates = calculateDates(formData);
+                    
+                    // 3. Prepare sheet data (status: pending)
+                    const sheetData = {
+                        timestamp: new Date().toISOString(),
+                        type: formData.adType,
+                        text: formData.adText,
+                        link: formData.adLink || '',
+                        priority: '3',
+                        start_time: dates.startTime,
+                        end_time: dates.endTime,
+                        status: 'pending',
+                        sponsor: formData.name,
+                        country: 'NG',
+                        created_at: new Date().toLocaleString('en-US'),
+                        speed: 'normal',
+                        expiry_date: dates.expiryDate,
+                        source: 'manual',
+                        email: formData.email,
+                        phone: formData.phone,
+                        plan: formData.planType === 'standard' ? formData.standardPlan : formData.frequencyPlan,
+                        amount: formData.amount,
+                        payment_status: 'pending',
+                        payment_reference: ''
+                    };
+                    
+                    // 4. 🔐 Save to Google Sheet with API KEY
+                    payButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving ad...';
+                    
+                    // ADD API KEY TO EVERY REQUEST
+                    const requestData = { 
+                        ...sheetData, 
+                        api_key: API_KEY,
+                        _ip: 'web' // For rate limiting
+                    };
+                    const params = new URLSearchParams(requestData);
+                    const getUrl = WRITE_URL + "?" + params.toString();
+                    
+                    await fetch(getUrl, {
+                        method: "GET",
+                        mode: "no-cors"
+                    });
+                    
+                    // 5. Generate unique transaction reference
+                    const reference = 'MUNDEZ-' + Date.now() + '-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+                    
+                    // 6. Initialize Paystack payment
+                    payButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opening payment gateway...';
+                    
+                    const handler = PaystackPop.setup({
+                        key: PAYSTACK_PUBLIC_KEY,
+                        email: formData.email,
+                        amount: formData.amount * 100,
+                        currency: 'NGN',
+                        ref: reference,
+                        metadata: {
+                            custom_fields: [
+                                {
+                                    display_name: "Customer Name",
+                                    variable_name: "customer_name",
+                                    value: formData.name
+                                },
+                                {
+                                    display_name: "Phone Number",
+                                    variable_name: "phone",
+                                    value: formData.phone
+                                },
+                                {
+                                    display_name: "Ad Text",
+                                    variable_name: "ad_text",
+                                    value: formData.adText.substring(0, 50)
+                                },
+                                {
+                                    display_name: "Plan",
+                                    variable_name: "plan",
+                                    value: formData.planType === 'standard' ? formData.standardPlan : formData.frequencyPlan
+                                }
+                            ]
+                        },
+                        callback: function(response) {
+                            // Payment successful - show modal with OK and Exit buttons
+                            showPaymentSuccessModal(response.reference, sheetData, formData);
+                        },
+                        onClose: function() {
+                            // Payment window closed
+                            payButton.innerHTML = '<i class="fas fa-lock"></i> Pay with Paystack';
+                            payButton.disabled = false;
+                            showPaymentCancelledModal();
+                        }
+                    });
+                    
+                    handler.openIframe();
+                    
+                } catch (error) {
+                    console.error('Payment error:', error);
+                    payButton.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error - Try Again';
+                    payButton.disabled = false;
+                    
+                    setTimeout(() => {
+                        payButton.innerHTML = originalText;
+                    }, 3000);
+                }
+            });
+            
+            // Animation on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('h2, .lead, .website-card, .plan-card, .form-container').forEach(el => {
+                observer.observe(el);
+            });
+        });
+        
+        // ============================================================
+        // PREVIEW FUNCTIONS
+        // ============================================================
+        
+        // Initialize preview with scrolling animation
+        function initPreview() {
+            const previewTrack = document.getElementById('previewTrack');
+            
+            // Restart animation periodically to ensure smooth infinite scroll
+            setInterval(() => {
+                previewTrack.style.animation = 'none';
+                previewTrack.offsetHeight; // Trigger reflow
+                previewTrack.style.animation = 'tickerPreview 15s linear infinite';
+            }, 14000);
+        }
+        
+        // Update preview content
+        function updatePreview() {
+            const adText = document.getElementById('adText').value || 'Your ad text will appear here and scroll continuously';
+            const adLink = document.getElementById('adLink').value;
+            const adType = document.getElementById('adType').value;
+            
+            let emoji = '💼';
+            if (adType === 'announcement') emoji = '📣';
+            
+            document.getElementById('previewEmoji').textContent = emoji;
+            document.getElementById('previewText').textContent = adText;
+            
+            if (adLink) {
+                document.getElementById('previewLink').textContent = '🔗 Click here';
+            } else {
+                document.getElementById('previewLink').textContent = '';
+            }
+            
+            // Reset animation to make it smooth with new content
+            const previewTrack = document.getElementById('previewTrack');
+            previewTrack.style.animation = 'none';
+            previewTrack.offsetHeight;
+            previewTrack.style.animation = 'tickerPreview 15s linear infinite';
+        }
+        
+        // ============================================================
+        // VALIDATION FUNCTIONS
+        // ============================================================
+        
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        function validatePhone(phone) {
+            const re = /^(0)([7-9]{1})(0|1){1}[0-9]{8}$|^(0)([7-9]{1})[0-9]{9}$/;
+            return re.test(phone);
+        }
+        
+        function validatePaymentData() {
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const name = document.getElementById('name').value;
+            const adText = document.getElementById('adText').value;
+            const adType = document.getElementById('adType').value;
+            const planType = document.getElementById('planType').value;
+            
+            if (!email || !phone || !name || !adText || !adType || !planType) {
+                alert('Please complete all required fields.');
+                return false;
+            }
+            
+            if (planType === 'standard' && !document.getElementById('standardPlan').value) {
+                alert('Please select a standard plan.');
+                return false;
+            }
+            
+            if (planType === 'frequency' && !document.getElementById('frequencyPlan').value) {
+                alert('Please select a frequency plan.');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        function collectFormData() {
+            const planType = document.getElementById('planType').value;
+            let amount = 0;
+            
+            if (planType === 'standard') {
+                const planSelect = document.getElementById('standardPlan');
+                amount = parseInt(planSelect.selectedOptions[0].dataset.amount);
+            } else {
+                const planSelect = document.getElementById('frequencyPlan');
+                amount = parseInt(planSelect.selectedOptions[0].dataset.amount);
+            }
+            
+            return {
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                name: document.getElementById('name').value,
+                adText: document.getElementById('adText').value,
+                adLink: document.getElementById('adLink').value,
+                adType: document.getElementById('adType').value,
+                planType: planType,
+                standardPlan: document.getElementById('standardPlan').value,
+                frequencyPlan: document.getElementById('frequencyPlan').value,
+                amount: amount
+            };
+        }
+        
+        function calculateDates(formData) {
+            const now = new Date();
+            const startTime = now.toISOString().slice(0, 16);
+            
+            let endTime, expiryDate;
+            
+            if (formData.planType === 'standard') {
+                if (formData.standardPlan === 'weekly') {
+                    const end = new Date(now);
+                    end.setDate(end.getDate() + 7);
+                    endTime = end.toISOString().slice(0, 16);
+                    expiryDate = end.toISOString().slice(0, 16);
+                } else if (formData.standardPlan === 'monthly') {
+                    const end = new Date(now);
+                    end.setDate(end.getDate() + 30);
+                    endTime = end.toISOString().slice(0, 16);
+                    expiryDate = end.toISOString().slice(0, 16);
+                } else if (formData.standardPlan === 'yearly') {
+                    const end = new Date(now);
+                    end.setDate(end.getDate() + 365);
+                    endTime = end.toISOString().slice(0, 16);
+                    expiryDate = end.toISOString().slice(0, 16);
+                }
+            } else {
+                const end = new Date(now);
+                end.setDate(end.getDate() + 7);
+                endTime = end.toISOString().slice(0, 16);
+                expiryDate = end.toISOString().slice(0, 16);
+            }
+            
+            return { startTime, endTime, expiryDate };
+        }
+        
+        // ============================================================
+        // MODAL FUNCTIONS
+        // ============================================================
+        
+        // Show payment success modal with OK and Exit buttons
+        function showPaymentSuccessModal(reference, sheetData, formData) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 style="color: var(--primary); margin: 0;">✅ Payment Successful!</h2>
+                        <button class="modal-close" id="modalExitBtn">&times;</button>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div style="font-size: 4rem; color: var(--primary); margin-bottom: 10px;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <p style="font-size: 1.2rem;">Your ad is now active!</p>
+                    </div>
+                    
+                    <div style="background: var(--dark); padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+                        <h4>Order Details</h4>
+                        <p><strong>Reference:</strong> ${reference}</p>
+                        <p><strong>Ad Text:</strong> ${formData.adText.substring(0, 100)}${formData.adText.length > 100 ? '...' : ''}</p>
+                        <p><strong>Plan:</strong> ${formData.planType === 'standard' ? formData.standardPlan : formData.frequencyPlan}</p>
+                        <p><strong>Amount Paid:</strong> ₦${formData.amount}</p>
+                        <p><strong>Status:</strong> <span style="color: var(--primary);">Active ✓</span></p>
+                    </div>
+                    
+                    <div style="background: rgba(0, 255, 136, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 30px; border: 1px solid var(--primary);">
+                        <p><i class="fas fa-info-circle"></i> Your ad will start appearing within 15 minutes. A confirmation has been sent to ${formData.email}.</p>
+                    </div>
+                    
+                    <div style="display: flex; gap: 15px; justify-content: center;">
+                        <button id="modalOkBtn" class="btn" style="flex: 1;">
+                            <i class="fas fa-check"></i> OK
+                        </button>
+                        <button id="modalExitBtn2" class="btn btn-exit" style="flex: 1;">
+                            <i class="fas fa-times"></i> Exit
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // OK button - closes modal and resets form
+            document.getElementById('modalOkBtn').addEventListener('click', function() {
+                document.body.removeChild(modal);
+                resetForm();
+            });
+            
+            // Exit buttons - close modal without resetting form
+            const exitButtons = ['modalExitBtn', 'modalExitBtn2'];
+            exitButtons.forEach(id => {
+                document.getElementById(id).addEventListener('click', function() {
+                    document.body.removeChild(modal);
+                });
+            });
+            
+            // Update the ad status in background with API KEY
+            simulatePaymentActivation(reference, sheetData);
+        }
+        
+        // Show payment cancelled modal
+        function showPaymentCancelledModal() {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 style="color: var(--accent); margin: 0;">⚠️ Payment Cancelled</h2>
+                        <button class="modal-close" id="modalExitBtn">&times;</button>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 30px 0;">
+                        <div style="font-size: 4rem; color: var(--accent); margin-bottom: 20px;">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <p style="font-size: 1.2rem;">You cancelled the payment.</p>
+                        <p style="color: var(--text-dim); margin-top: 10px;">Your ad has been saved as pending. You can complete payment later.</p>
+                    </div>
+                    
+                    <div style="display: flex; gap: 15px; justify-content: center;">
+                        <button id="modalTryAgainBtn" class="btn" style="flex: 1;">
+                            <i class="fas fa-redo"></i> Try Again
+                        </button>
+                        <button id="modalExitBtn2" class="btn btn-exit" style="flex: 1;">
+                            <i class="fas fa-times"></i> Exit
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            document.getElementById('modalTryAgainBtn').addEventListener('click', function() {
+                document.body.removeChild(modal);
+                document.getElementById('payButton').click();
+            });
+            
+            const exitButtons = ['modalExitBtn', 'modalExitBtn2'];
+            exitButtons.forEach(id => {
+                document.getElementById(id).addEventListener('click', function() {
+                    document.body.removeChild(modal);
+                });
+            });
+        }
+        
+        // Simulate payment activation with API KEY
+        function simulatePaymentActivation(reference, sheetData) {
+            setTimeout(async () => {
+                const updateData = {
+                    ...sheetData,
+                    status: 'active',
+                    payment_reference: reference,
+                    payment_date: new Date().toISOString(),
+                    payment_status: 'paid'
+                };
+                
+                // 🔐 ADD API KEY TO ACTIVATION REQUEST
+                const requestData = { 
+                    ...updateData, 
+                    api_key: API_KEY,
+                    _ip: 'web' 
+                };
+                const params = new URLSearchParams(requestData);
+                const getUrl = WRITE_URL + "?" + params.toString();
+                
+                try {
+                    await fetch(getUrl, {
+                        method: "GET",
+                        mode: "no-cors"
+                    });
+                    console.log('✅ Ad activated successfully:', reference);
+                } catch (error) {
+                    console.error('❌ Activation error:', error);
+                }
+            }, 5000);
+        }
+        
+        // Reset form
+        function resetForm() {
+            document.querySelectorAll('input, textarea, select').forEach(el => {
+                if (el.type !== 'button' && el.type !== 'submit') {
+                    el.value = '';
+                }
+            });
+            
+            document.querySelectorAll('.form-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById('step1').classList.add('active');
+            currentStep = 0;
+            
+            const payButton = document.getElementById('payButton');
+            payButton.innerHTML = '<i class="fas fa-lock"></i> Pay with Paystack';
+            payButton.disabled = false;
+            
+            // Reset char count
+            document.getElementById('charCount').textContent = '0';
+            
+            // Reset preview
+            updatePreview();
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
